@@ -38,7 +38,14 @@ python3 get-pip.py
 Install GTK3+ and AppIndicator
 ```
 brew install gtk+3 pygobject3
-pip install notify2
+pip3 install notify2
+```
+
+## Production
+
+To build ryb:
+```
+python setup.py sdist --formats=gztar
 ```
 
 ## About
