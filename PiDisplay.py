@@ -29,7 +29,6 @@ class PiDisplay(object):
   def use_hdmi(self, _):
     cmd_hdmi = "./UCTRONICS_LCD_hdmi"
     p = subprocess.Popen(['sudo', cmd_hdmi], cwd=os.path.expanduser('~/UCTRONICS_LCD35_RPI/'))
-    p.wait()
     n = notify2.Notification(
       "Switching to HDMI",
       "Loading drivers then rebooting Pi. This may take a minute or two — please be patient!",
@@ -38,11 +37,11 @@ class PiDisplay(object):
     n.set_urgency(notify2.URGENCY_NORMAL)
     n.set_timeout(30000)
     n.show()
+    p.wait()
   
   def use_lcd35(self, _):
     cmd_lcd35 = "./UCTRONICS_LCD35_install"
     p = subprocess.Popen(['sudo', cmd_lcd35], cwd=os.path.expanduser('~/UCTRONICS_LCD35_RPI/'))
-    p.wait()
     n = notify2.Notification(
       "Switching to LCD 3.5\"",
       "Loading drivers then rebooting Pi. This may take a minute or two — please be patient!",
@@ -51,11 +50,12 @@ class PiDisplay(object):
     n.set_urgency(notify2.URGENCY_NORMAL)
     n.set_timeout(30000)
     n.show()
+    p.wait()
   
   def about(self, _):
     n = notify2.Notification(
     "About PiDisplay",
-    "Utility to switch between HDMI and UCTRONIC LCD 3.5\" displays\n\nCreated for Calistoga STEM Camp Summer 2019\nBy Barry Low <barrylow@gmail.com>\nView source: https://github.com/bearcanrun",
+    "Utility to switch between HDMI and UCTRONIC LCD 3.5\" displays\n\nCreated for Calistoga STEM Camp Summer 2019\nBy Barry Low <barrylow@gmail.com>\nView source: https://github.com/bearcanrun/pi-display",
     "/usr/share/icons/gnome/48x48/devices/display.png"
     )
     n.set_urgency(notify2.URGENCY_NORMAL)
