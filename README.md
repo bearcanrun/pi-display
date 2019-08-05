@@ -1,5 +1,7 @@
 # PiDisplay
 
+![PiDisplay System Tray Icon](./screenshot.png)
+
 PiDisplay is a system tray utility built for Raspberry Pi for switching between HDMI and UCTRONICS 3.5" LCD displays. The default method involves running bash scripts in the terminal, so PiDisplay simplifies this process by putting simple options in a dropdown menu from the system tray.
 
 > This app is build specifically for this [UCTRONICS screen](https://github.com/UCTRONICS/UCTRONICS_LCD35_RPI)
