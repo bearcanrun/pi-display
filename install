@@ -1,0 +1,28 @@
+echo Downloading PiDisplay, please wait...
+sudo wget https://github.com/bearcanrun/pi-display/releases/download/v0.1.0/PiDisplay.0.1.0.tar.xz
+echo Download OK.
+echo Unzipping...
+sudo tar -xavf PiDisplay.0.1.0.tar.xz
+echo Installing...
+sudo cp ./PiDisplay /usr/bin/
+cd /home/pi/UCTRONICS_LCD35_RPI
+sudo chmod +x /usr/bin/PiDisplay
+sudo touch /usr/lib/systemd/system/PiDisplay.service
+sudo cat >> /usr/lib/systemd/system/PiDisplay.service <<EOL
+[Unit]
+Description=PiDisplay
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/PiDisplay
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+EOL
+sudo systemctl daemon-reload
+sudo systemctl start PiDisplay
+echo Installation complete!
