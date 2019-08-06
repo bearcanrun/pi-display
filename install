@@ -11,8 +11,8 @@ echo PiDisplay installed at /usr/bin/PiDisplay
 sudo touch runPiDisplay.sh
 sudo chmod +x runPiDisplay.sh
 sudo cat >> runPiDisplay.sh <<EOL
-echo "tarting up PiDisplay...
-/usr/bin/PiDisplay
+echo Starting up PiDisplay...
+sudo /usr/bin/PiDisplay
 EOL
 sudo touch uninstallPiDisplay.sh
 sudo chmod +x uninstallPiDisplay.sh
