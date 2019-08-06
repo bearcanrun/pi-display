@@ -8,6 +8,31 @@ PiDisplay is a system tray utility built for Raspberry Pi for switching between 
 
 The script was initially develope directly on the Pi with [UC Davis's c-STEMBian](https://c-stem.ucdavis.edu/c-stembian/download-2/) installed. c-STEMBian is a curated OS built on Raspbian with a wide selection of c-STEM packages.
 
+## Installation
+
+Open up the terminal and copy and paste this command:
+```
+wget -nd -P ~/PiDisplay https://raw.githubusercontent.com/bearcanrun/pi-display/master/install &&  sudo chmod +x ~/PiDisplay/install  && cd ~/PiDisplay && sudo ./install
+```
+
+_Note: In Raspbian's terminal, you have to use paste from menu Edit > Paste or right click and then choose "paste."_
+
+## Using PiDisplay
+
+PiDisplay is set to automatically load when the Pi reboots.
+
+If you quite PiDisplay and wish to restart it without rebooting, open up the terminal and run:
+```
+sudo systemctl start PiDisplay
+```
+
+### Uninstall
+
+Open up the terminal and run:
+```
+sudo /home/pi/PiDisplay/uninstallPiDisplay.sh
+```
+
 ## Development
 
 Tracking down dependencies for the various Python environments can be challenging.

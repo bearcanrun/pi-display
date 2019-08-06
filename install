@@ -1,12 +1,30 @@
+#! /bin/bash
 echo Downloading PiDisplay, please wait...
 sudo wget https://github.com/bearcanrun/pi-display/releases/download/v0.1.0/PiDisplay.0.1.0.tar.xz
 echo Download OK.
-echo Unzipping...
+echo Unzipping...please be patient...
 sudo tar -xavf PiDisplay.0.1.0.tar.xz
 echo Installing...
 sudo cp ./PiDisplay /usr/bin/
-cd /home/pi/UCTRONICS_LCD35_RPI
 sudo chmod +x /usr/bin/PiDisplay
+echo PiDisplay installed at /usr/bin/PiDisplay
+sudo touch runPiDisplay.sh
+sudo chmod +x runPiDisplay.sh
+sudo cat >> runPiDisplay.sh <<EOL
+echo "tarting up PiDisplay...
+/usr/bin/PiDisplay
+EOL
+sudo touch uninstallPiDisplay.sh
+sudo chmod +x uninstallPiDisplay.sh
+sudo cat >> uninstallPiDisplay.sh <<EOL
+echo Uninstalling PiDisplay...
+cd /home/pi
+sudo systemctl stop PiDisplay
+sudo rm /usr/lib/systemd/system/PiDisplay.service
+sudo rm /usr/bin/PiDisplay
+sudo rm -rf PiDisplay && echo PiDisplay uninstalled
+EOL
+echo Installing service...
 sudo touch /usr/lib/systemd/system/PiDisplay.service
 sudo cat >> /usr/lib/systemd/system/PiDisplay.service <<EOL
 [Unit]
@@ -14,7 +32,8 @@ Description=PiDisplay
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/PiDisplay
+WorkingDirectory=/home/pi
+ExecStart=/home/pi/PiDisplay/runPiDisplay.sh
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -23,6 +42,12 @@ User=pi
 [Install]
 WantedBy=multi-user.target
 EOL
+sudo systemctl enable PiDisplay
 sudo systemctl daemon-reload
+echo Starting PiDisplay...
 sudo systemctl start PiDisplay
+sudo systemctl status PiDisplay
+echo Cleaning up...
+sudo rm PiDisplay
+sudo rm PiDisplay.0.1.0.tar.xz
 echo Installation complete!
